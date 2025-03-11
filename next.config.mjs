@@ -7,6 +7,10 @@ try {
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+<<<<<<< HEAD
+=======
+  reactStrictMode: true,
+>>>>>>> 553198d (added courseworks)
   eslint: {
     ignoreDuringBuilds: true,
   },
@@ -46,3 +50,7 @@ function mergeConfig(nextConfig, userConfig) {
 }
 
 export default nextConfig
+<<<<<<< HEAD
+=======
+
+>>>>>>> 553198d (added courseworks)

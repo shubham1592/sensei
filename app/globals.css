@@ -1,3 +1,10 @@
+<<<<<<< HEAD
+=======
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+>>>>>>> 553198d (added courseworks)
 @layer base {
   :root {
     --background: 0 0% 100%;

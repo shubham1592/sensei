@@ -17,7 +17,13 @@ export default function GenerateCourseworkPage() {
             <h1 className="text-xl font-bold">Sensei</h1>
           </div>
           <div className="flex items-center gap-4">
+<<<<<<< HEAD
             <p className="text-sm text-muted-foreground hidden md:block">Welcome, Manager</p>
+=======
+            <p className="text-sm text-muted-foreground hidden md:block">
+              Welcome, Manager (test_manager@bajajfinserv.in)
+            </p>
+>>>>>>> 553198d (added courseworks)
             <Button variant="outline" size="sm" asChild>
               <Link href="/">
                 <LogOut className="h-4 w-4 mr-2" />

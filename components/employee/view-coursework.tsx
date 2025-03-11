@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/dialog"
 import { Progress } from "@/components/ui/progress"
 import { useToast } from "@/components/ui/use-toast"
+<<<<<<< HEAD
 
 // Coursework data from the JSON file
 const courseworkData = {
@@ -493,6 +494,9 @@ const courseworkData = {
     },
   ],
 }
+=======
+import { useUser } from "@/context/user-context"
+>>>>>>> 553198d (added courseworks)
 
 // Quiz component
 const Quiz = ({ questions, onClose, onComplete }) => {
@@ -649,6 +653,13 @@ export function ViewCoursework() {
   const [assignmentText, setAssignmentText] = useState({})
   const fileInputRefs = useRef({})
   const { toast } = useToast()
+<<<<<<< HEAD
+=======
+  const { user, getCourseworkData } = useUser()
+
+  // Get the appropriate coursework data based on the user
+  const courseworkData = getCourseworkData()
+>>>>>>> 553198d (added courseworks)
 
   const handleQuizComplete = (day, score, total) => {
     setQuizResults({
@@ -703,11 +714,39 @@ export function ViewCoursework() {
     })
   }
 
+<<<<<<< HEAD
+=======
+  if (!courseworkData) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <p>Loading coursework data...</p>
+      </div>
+    )
+  }
+
+  const courseTitle =
+    user.courseworkType === "cdp"
+      ? "Data Modelling and CDP Mastery"
+      : user.courseworkType === "goldengate"
+        ? "Goldengate Training"
+        : "Data Lake Training"
+
+>>>>>>> 553198d (added courseworks)
   return (
     <div className="space-y-6">
       <div>
         <h2 className="text-2xl font-bold tracking-tight">Your Coursework</h2>
+<<<<<<< HEAD
         <p className="text-muted-foreground">Day-wise knowledge transfer plan for Data Lake training</p>
+=======
+        <p className="text-muted-foreground">
+          {user?.courseworkType === "cdp"
+            ? "Day-wise knowledge transfer plan for Data Modelling and CDP"
+            : user?.courseworkType === "goldengate"
+              ? "Day-wise knowledge transfer plan for Goldengate Training"
+              : "Day-wise knowledge transfer plan for Data Lake training"}
+        </p>
+>>>>>>> 553198d (added courseworks)
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-[250px_1fr] gap-6">
@@ -808,16 +847,41 @@ export function ViewCoursework() {
                 <div>
                   <h3 className="font-semibold text-lg mb-2">Assignments</h3>
                   <ul className="space-y-2 mb-4">
+<<<<<<< HEAD
                     {day.assignments.map((assignment, i) => (
                       <li key={i} className="flex items-start gap-2">
                         <div className={`mt-0.5 ${assignment.isCompleted ? "text-green-500" : "text-amber-500"}`}>
                           {assignment.isCompleted ? (
+=======
+                    {Array.isArray(day.assignments) ? (
+                      day.assignments.map((assignment, i) => (
+                        <li key={i} className="flex items-start gap-2">
+                          <div className={`mt-0.5 ${assignment.isCompleted ? "text-green-500" : "text-amber-500"}`}>
+                            {assignment.isCompleted ? (
+                              <CheckCircle2 className="h-5 w-5" />
+                            ) : (
+                              <XCircle className="h-5 w-5" />
+                            )}
+                          </div>
+                          <div>
+                            <p className="font-medium">Assignment {assignment.assignmentId}</p>
+                            <p className="text-muted-foreground">{assignment.task || assignment.details}</p>
+                          </div>
+                        </li>
+                      ))
+                    ) : (
+                      // Handle the case where assignments is an object instead of an array (for CDP or Goldengate coursework)
+                      <li className="flex items-start gap-2">
+                        <div className={`mt-0.5 ${day.assignments.isCompleted ? "text-green-500" : "text-amber-500"}`}>
+                          {day.assignments.isCompleted ? (
+>>>>>>> 553198d (added courseworks)
                             <CheckCircle2 className="h-5 w-5" />
                           ) : (
                             <XCircle className="h-5 w-5" />
                           )}
                         </div>
                         <div>
+<<<<<<< HEAD
                           <p className="font-medium">Assignment {assignment.assignmentId}</p>
                           <p className="text-muted-foreground">{assignment.task}</p>
                         </div>
@@ -871,6 +935,61 @@ export function ViewCoursework() {
                       Submit Assignment
                     </Button>
                   </div>
+=======
+                          <p className="font-medium">Assignment {day.assignments.assignmentId}</p>
+                          <p className="text-muted-foreground">{day.assignments.task || day.assignments.details}</p>
+                        </div>
+                      </li>
+                    )}
+                  </ul>
+                </div>
+
+                <div className="space-y-4 border rounded-md p-4 bg-muted/30">
+                  <h4 className="font-medium">Submit Your Assignment</h4>
+
+                  <Textarea
+                    placeholder="Type your assignment response here..."
+                    className="min-h-[120px]"
+                    value={assignmentText[day.day] || ""}
+                    onChange={(e) => handleTextChange(day.day, e.target.value)}
+                  />
+
+                  <div className="flex items-center gap-2">
+                    <div className="relative">
+                      <input
+                        type="file"
+                        id={`file-upload-day-${day.day}`}
+                        className="sr-only"
+                        accept=".doc,.docx,.pdf,.txt,.png,.jpg,.jpeg"
+                        onChange={(e) => handleFileChange(day.day, e)}
+                        ref={(el) => (fileInputRefs.current[day.day] = el)}
+                      />
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="flex items-center gap-2"
+                        onClick={() => fileInputRefs.current[day.day].click()}
+                      >
+                        <Upload className="h-4 w-4" />
+                        {uploadedFiles[day.day] ? uploadedFiles[day.day].name : "Upload File"}
+                      </Button>
+                    </div>
+                    <p className="text-xs text-muted-foreground">
+                      Supported formats: .doc, .docx, .pdf, .txt, .png, .jpg, .jpeg
+                    </p>
+                  </div>
+                </div>
+
+                <div className="mt-4">
+                  <Button
+                    className="w-full sm:w-auto flex items-center gap-2"
+                    onClick={() => handleSubmitAssignment(day.day)}
+                    disabled={!assignmentText[day.day] && !uploadedFiles[day.day]}
+                  >
+                    <Send className="h-4 w-4" />
+                    Submit Assignment
+                  </Button>
+>>>>>>> 553198d (added courseworks)
                 </div>
 
                 <div>

@@ -51,10 +51,17 @@ export default function ManagerLogin() {
 
     // Simulate API call
     setTimeout(() => {
+<<<<<<< HEAD
       if (email === "test_user@bajajfinserv.in" && password === "helloworld123") {
         toast({
           title: "Login successful",
           description: "Welcome to Sensei!",
+=======
+      if (email === "test_manager@bajajfinserv.in" && password === "helloworld123") {
+        toast({
+          title: "Login successful",
+          description: "Welcome to Sensei Manager Dashboard!",
+>>>>>>> 553198d (added courseworks)
           variant: "success",
         })
         router.push("/manager/dashboard")

@@ -6,8 +6,24 @@ import { Toaster } from "@/components/toaster"
 import { BookOpen, ArrowLeft, LogOut } from "lucide-react"
 import Link from "next/link"
 import { SubmitAssignment } from "@/components/employee/submit-assignment"
+<<<<<<< HEAD
 
 export default function AssignmentsPage() {
+=======
+import { useUser } from "@/context/user-context"
+
+export default function AssignmentsPage() {
+  const { user, isLoading } = useUser()
+
+  if (isLoading) {
+    return <div>Loading...</div>
+  }
+
+  if (!user) {
+    return <div>Please log in to view assignments.</div>
+  }
+
+>>>>>>> 553198d (added courseworks)
   return (
     <div className="min-h-screen flex flex-col">
       <header className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 sticky top-0 z-10">
@@ -17,7 +33,11 @@ export default function AssignmentsPage() {
             <h1 className="text-xl font-bold">Sensei</h1>
           </div>
           <div className="flex items-center gap-4">
+<<<<<<< HEAD
             <p className="text-sm text-muted-foreground hidden md:block">Welcome, Test User</p>
+=======
+            <p className="text-sm text-muted-foreground hidden md:block">Welcome, {user.name}</p>
+>>>>>>> 553198d (added courseworks)
             <Button variant="outline" size="sm" asChild>
               <Link href="/">
                 <LogOut className="h-4 w-4 mr-2" />

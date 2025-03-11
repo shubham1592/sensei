@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 /** @type {import('tailwindcss').Config} */
+=======
+>>>>>>> 553198d (added courseworks)
 module.exports = {
   darkMode: ["class"],
   content: [

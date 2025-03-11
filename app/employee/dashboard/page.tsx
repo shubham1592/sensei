@@ -7,9 +7,40 @@ import { BookOpen, FileUp, HelpCircle, LogOut } from "lucide-react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { motion } from "framer-motion"
+<<<<<<< HEAD
 
 export default function EmployeeDashboard() {
   const router = useRouter()
+=======
+import { useUser } from "@/context/user-context"
+import { useEffect } from "react"
+
+export default function EmployeeDashboard() {
+  const router = useRouter()
+  const { user, isLoading } = useUser()
+
+  // Redirect to login if no user is found
+  useEffect(() => {
+    if (!isLoading && !user) {
+      router.push("/login/employee")
+    }
+  }, [user, isLoading, router])
+
+  if (isLoading || !user) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <p>Loading...</p>
+      </div>
+    )
+  }
+
+  const courseTitle =
+    user.courseworkType === "cdp"
+      ? "Data Modelling and CDP Mastery"
+      : user.courseworkType === "goldengate"
+        ? "Goldengate Training"
+        : "Data Lake Training"
+>>>>>>> 553198d (added courseworks)
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -20,7 +51,11 @@ export default function EmployeeDashboard() {
             <h1 className="text-xl font-bold">Sensei</h1>
           </div>
           <div className="flex items-center gap-4">
+<<<<<<< HEAD
             <p className="text-sm text-muted-foreground hidden md:block">Welcome, Test User</p>
+=======
+            <p className="text-sm text-muted-foreground hidden md:block">Welcome, {user.name}</p>
+>>>>>>> 553198d (added courseworks)
             <Button variant="secondary" size="sm" asChild className="whitespace-nowrap">
               <Link href="/">
                 <LogOut className="h-4 w-4 mr-2" />
@@ -35,7 +70,11 @@ export default function EmployeeDashboard() {
         <div className="space-y-6 max-w-5xl mx-auto">
           <div className="text-center mb-8">
             <h2 className="text-3xl font-bold tracking-tight">Employee Dashboard</h2>
+<<<<<<< HEAD
             <p className="text-muted-foreground mt-2">Access your personalized training materials and resources</p>
+=======
+            <p className="text-muted-foreground mt-2">Access your personalized training materials for {courseTitle}</p>
+>>>>>>> 553198d (added courseworks)
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
